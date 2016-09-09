@@ -8,6 +8,7 @@ namespace GigHub.Models
 
         public DbSet<Gig> Gigs { get; set; }
         public DbSet<Genre> Genre { get; set; }
+        public object Genres { get; internal set; }
 
         public ApplicationDbContext() : base("DefaultConnection", throwIfV1Schema: false)
         {
