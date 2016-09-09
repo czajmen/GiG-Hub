@@ -15,6 +15,7 @@ namespace GigHub.Controllers
         }
 
         // GET: Gigs
+        [Authorize]
         public ActionResult Create()
         {
 
