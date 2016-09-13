@@ -1,7 +1,6 @@
 ﻿using GigHub.Models;
 using GigHub.ViewModels;
 using Microsoft.AspNet.Identity;
-using System;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -35,20 +34,31 @@ namespace GigHub.Controllers
         [HttpPost]
         public async System.Threading.Tasks.Task<ActionResult> Create(GigFormViewModel vm)
         {
-
-            var gig = new Gig
+            if (ModelState.IsValid)
             {
-                ArtistId = User.Identity.GetUserId(),
-                DateTime = DateTime.Parse(string.Format("{0} {1}", vm.Date, vm.Time)),
-                GenreId = vm.Genre,
-                Venue = vm.Venue
-            };
+                var gig = new Gig
+                {
+                    ArtistId = User.Identity.GetUserId(),
+                    DateTime = vm.GetDateTime(vm.Date, vm.Time),
+                    GenreId = vm.Genre,
+                    Venue = vm.Venue
+                };
 
-            _context.Gigs.Add(gig);
+                _context.Gigs.Add(gig);
 
-            await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync();
 
-            return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                vm.Genres = _context.Genre.ToList();
+
+                return (View("Create", vm));
+            }
+
+
+
 
         }
     }
