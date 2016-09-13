@@ -32,6 +32,7 @@ namespace GigHub.Controllers
 
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async System.Threading.Tasks.Task<ActionResult> Create(GigFormViewModel vm)
         {
             if (ModelState.IsValid)
@@ -48,13 +49,13 @@ namespace GigHub.Controllers
 
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction($"Index", $"Home");
             }
             else
             {
                 vm.Genres = _context.Genre.ToList();
 
-                return (View("Create", vm));
+                return (View($"Create", vm));
             }
 
 
