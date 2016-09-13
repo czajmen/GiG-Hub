@@ -36,19 +36,11 @@ namespace GigHub.Controllers
         public async System.Threading.Tasks.Task<ActionResult> Create(GigFormViewModel vm)
         {
 
-
-            var artistId = User.Identity.GetUserId();
-            var artist = _context.Users.Single(u => u.Id == artistId);
-            var genre = _context.Genre.Single(g => g.Id == vm.Genre);
-
-
-
-
             var gig = new Gig
             {
-                Artist = artist,
+                ArtistId = User.Identity.GetUserId(),
                 DateTime = DateTime.Parse(string.Format("{0} {1}", vm.Date, vm.Time)),
-                Genre = genre,
+                GenreId = vm.Genre,
                 Venue = vm.Venue
             };
 

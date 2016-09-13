@@ -21,7 +21,7 @@ namespace GigHub.ViewModels
 
         [Required]
         [Display(Name = "Główny gaturnek muzyczny")]
-        public int Genre { get; set; }
+        public byte Genre { get; set; }
 
         public IEnumerable<Genre> Genres { get; set; }
 
