@@ -13,9 +13,13 @@
 {
     <p class="alert alert-info">Wszystkie Pola są <strong >wymagane.</strong></p>
     @Html.AntiForgeryToken()
+    <hr/>
+
+    @Html.ValidationSummary("", new { @class = "text-danger"})
+
     <div class="form-group">
         @Html.LabelFor(m => m.Venue)
-        @Html.TextBoxFor(m => m.Venue, new { @class = "form-control" , autofocus = "autofocus" })
+        @Html.TextBoxFor(m => m.Venue, new { @class = "form-control"})
         @Html.ValidationMessageFor(m => m.Venue , string.Empty , new {@class = "text-danger"})
     </div>
     <div class="form-group">

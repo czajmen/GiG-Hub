@@ -71,13 +71,18 @@ namespace GigHub.Models
 
         [Required]
         [StringLength(100, ErrorMessage = " {0} Musi być dłużesze niż {2} znaki", MinimumLength = 6)]
+        [Display(Name = "Imie i Nazwisko")]
+        public string Name { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = " {0} Musi być dłużesze niż {2} znaki", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Hasło")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Potwierdź hasło")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("Password", ErrorMessage = "Hasła nie pasują do siebie.")]
         public string ConfirmPassword { get; set; }
     }
 
