@@ -28,10 +28,10 @@ namespace GigHub.ViewModels
 
         public IEnumerable<Genre> Genres { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        [Display(Name = "Imie i Nazwisko")]
-        public string Name { get; set; }
+        //[Required]
+        //[StringLength(100)]
+        //[Display(Name = "Imie i Nazwisko")]
+        //public string Name { get; set; }
 
         public DateTime GetDateTime(string Date, string Time)
         {

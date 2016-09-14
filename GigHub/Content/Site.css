@@ -80,3 +80,57 @@ nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse 
 .navbar-brand {
     font-weight: 700; 
 }
+
+
+
+.gigs {
+    padding-top: 50px;
+    list-style: none
+}
+
+
+.gigs > li {
+
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.gigs > li .details {
+    margin-left:15px;
+    position: absolute;
+    top: 0;
+    left: 70px;
+}
+
+.gigs > li .date {
+    background: red;
+    color: white;
+    text-align: center;
+    width: 60px;
+    -ms-border-radius: 8px;
+    border-radius: 8px;
+}
+
+.date .month {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 2px 6px;
+}
+
+.date .day {
+
+    background: #f7f7f7;
+    color: #333;
+    font-size: 20px;
+     padding: 6px 12px;
+}
+
+ .details .artist {
+     font-weight: bold;
+     display: block;
+ }
+
+ .details .genre {
+     font-size: 15px;
+ }
