@@ -211,6 +211,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\AttendanceDto.cs" />
     <Compile Include="Controllers\Api\AttendancesController.cs" />
+    <Compile Include="Controllers\Api\FollowingArtistDto.cs" />
+    <Compile Include="Controllers\Api\FollwingArtistController.cs" />
     <Compile Include="Controllers\GigsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -249,10 +251,15 @@
     <Compile Include="Migrations\201609150940568_add-attendanceWithoutCascadeDel.Designer.cs">
       <DependentUpon>201609150940568_add-attendanceWithoutCascadeDel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609152145025_followinguser.cs" />
+    <Compile Include="Migrations\201609152145025_followinguser.Designer.cs">
+      <DependentUpon>201609152145025_followinguser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\Attendance.cs" />
+    <Compile Include="Models\FollowingArtist.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\Gig.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -369,6 +376,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609150940568_add-attendanceWithoutCascadeDel.resx">
       <DependentUpon>201609150940568_add-attendanceWithoutCascadeDel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609152145025_followinguser.resx">
+      <DependentUpon>201609152145025_followinguser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

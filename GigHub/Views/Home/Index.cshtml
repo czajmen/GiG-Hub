@@ -6,8 +6,7 @@
 <ul class="gigs">
     @foreach (var gig in Model)
     {
-        <li>
-            
+        <li>        
             <div class="date">
                 <div class="month">
                     @gig.DateTime.ToString("MMM")
@@ -16,19 +15,20 @@
                 <div class="day">
                     @gig.DateTime.ToString("d ")
                 </div>
+                
             </div>
             <div class="details">
                 <span class="artist">
                     @gig.Artist.Name
+                    <button data-artist-id="@gig.ArtistId" style="margin-bottom: 10px;" class="btn btn-xs btn-primary js-follow-artist">Obserwuj</button>
                    </span>
+               
                 <span class="genre">
                     @gig.Genre.Name
                   </span>
-         
-                <button data-gig-id="@gig.Id" id="js-toggle-attendance" class="btn btn-default btn-sm pull-right"  >Idziesz?</button>
-            </div>
-            
-
+        
+                <button data-gig-id="@gig.Id"  class="btn btn-default btn-sm pull-right js-toggle-attendance"  >Idziesz?</button>
+            </div>          
         </li>
     }
 
@@ -37,26 +37,33 @@
 @section scripts{
     <script>
 
-
-        $(document)
+       $(document)
             .ready(function() {
 
-                $("#js-toggle-attendance")
+                $(".js-toggle-attendance")
                     .click(function (e) {
                         var button = $(e.target);
-
                         $.post("/api/attendances", { gigId: button.attr("data-gig-id") })
                             .done(function() {
-
                                 button.removeClass("btn-default").addClass("btn-info").text("Ide");
                             })
                             .fail(function() {
-
                                 alert("Coś poszło nie tak :(");
                             });
-
                     });
-            });
 
+
+                $(".js-follow-artist")
+                .click(function (e) {
+                    var button = $(e.target);
+                    $.post("/api/follow/", { ArtistId: button.attr("data-artist-id") })
+                        .done(function () {
+                            button.removeClass("btn-promary").addClass("btn-info").text("Obserwuje");
+                        })
+                        .fail(function () {
+                            alert("Coś poszło nie tak :(");
+                        });
+                });
+            });
     </script>
 }
