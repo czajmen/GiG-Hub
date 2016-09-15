@@ -24,6 +24,8 @@
                 <span class="genre">
                     @gig.Genre.Name
                   </span>
+         
+                <button data-gig-id="@gig.Id" id="js-toggle-attendance" class="btn btn-default btn-sm pull-right"  >Idziesz?</button>
             </div>
             
 
@@ -32,3 +34,29 @@
 
 
 </ul>
+@section scripts{
+    <script>
+
+
+        $(document)
+            .ready(function() {
+
+                $("#js-toggle-attendance")
+                    .click(function (e) {
+                        var button = $(e.target);
+
+                        $.post("/api/attendances", { gigId: button.attr("data-gig-id") })
+                            .done(function() {
+
+                                button.removeClass("btn-default").addClass("btn-info").text("Ide");
+                            })
+                            .fail(function() {
+
+                                alert("Coś poszło nie tak :(");
+                            });
+
+                    });
+            });
+
+    </script>
+}
