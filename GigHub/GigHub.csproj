@@ -213,6 +213,7 @@
     <Compile Include="Controllers\Api\AttendancesController.cs" />
     <Compile Include="Controllers\Api\FollowingArtistDto.cs" />
     <Compile Include="Controllers\Api\FollwingArtistController.cs" />
+    <Compile Include="Controllers\Api\GigsController.cs" />
     <Compile Include="Controllers\FollowController.cs" />
     <Compile Include="Controllers\GigsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -256,6 +257,10 @@
     <Compile Include="Migrations\201609171057031_followingUser.Designer.cs">
       <DependentUpon>201609171057031_followingUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609171930377_addIsCanceledToGig.cs" />
+    <Compile Include="Migrations\201609171930377_addIsCanceledToGig.Designer.cs">
+      <DependentUpon>201609171930377_addIsCanceledToGig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -291,6 +296,8 @@
     <Content Include="Scripts\angular-route.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\bootbox.js" />
+    <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
@@ -392,6 +399,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609171057031_followingUser.resx">
       <DependentUpon>201609171057031_followingUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609171930377_addIsCanceledToGig.resx">
+      <DependentUpon>201609171930377_addIsCanceledToGig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

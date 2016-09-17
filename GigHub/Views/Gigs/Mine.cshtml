@@ -31,7 +31,10 @@
                 <div class="actions">
                     <a href="@Url.Action("Edit", "Gigs", new {id = gig.Id})">
                         Edytuj
+                    </a> | <a href="#" class="js-cancel-gig" data-gig-id="@gig.Id">
+                        Cancel
                     </a>
+
                 </div>
    
             </div>          
@@ -40,4 +43,50 @@
 
 
 </ul>
+
+@section scripts
+{
+    <script>
+
+
+        $(document)
+            .ready(function() {
+                $(".js-cancel-gig")
+                    .click(function(e) {
+                        var link = $(e.target);
+
+                        bootbox.confirm("Jesteś pewien ze chcesz usunąć ten koncert?",
+                            function (result) {
+
+                                if (result) {
+                                    $.ajax({
+                                        url: "/api/gigs/" + link.attr("data-gig-id"),
+                                        method: "DELETE"
+                                            })
+                                     .done(function () {
+
+                                         link.parents("li")
+                                             .fadeOut(function () {
+
+                                                 $(this).remove();
+                                             });
+                                     }
+                                     )
+                                     .fail(function () {
+
+                                         alert("Coś poszło nie tak!");
+                                     });
+
+                                }
+
+                            });
+
+                    
+
+                    });
+
+            });
+    </script>
+
+}
 
