@@ -1,0 +1,25 @@
+﻿@model GigHub.ViewModels.FollowingArtistsViewModel
+
+@{
+    ViewBag.Title = "Obserwowani artyści:";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+<h2></h2>
+
+
+<ul class="artists">
+
+    @foreach (var artist in Model.Artists)
+    {
+
+        <li><i class="fa fa-user fa-4x" style="padding-right: 20px;" aria-hidden="true"></i>   @artist.Name</li>
+   
+
+
+
+
+
+    }
+
+</ul>

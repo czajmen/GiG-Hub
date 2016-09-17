@@ -11,7 +11,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">@User.Identity.GetUserName() <span class="caret"></span></a>
             <ul class="dropdown-menu">
                 <li><a href="@Url.Action("Attending","Gigs")">Gigi na które idę</a></li>
-                <li><a href="#">Obserwowani artyści</a></li>
+                <li><a href="@Url.Action("Follow","Follow")">Obserwowani artyści</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="javascript:document.getElementById('logoutForm').submit()">Wyloguj</a></li>
             </ul>
