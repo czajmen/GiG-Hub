@@ -56,7 +56,9 @@ ViewBag.Title = $"Home Page";
                         var button = $(e.target);
                         $.post("/api/attendances", { gigId: button.attr("data-gig-id") })
                             .done(function() {
-                                button.removeClass("btn-default").addClass("btn-info").text("Ide");
+                                button.removeClass("btn-default")
+                                    .addClass("btn-info")
+                                    .text("Ide");
                             })
                             .fail(function() {
                                 alert("Coś poszło nie tak :(");
@@ -69,7 +71,9 @@ ViewBag.Title = $"Home Page";
                     var button = $(e.target);
                     $.post("/api/follow/", { ArtistId: button.attr("data-artist-id") })
                         .done(function () {
-                            button.removeClass("btn-promary").addClass("btn-info").text("Obserwuje");
+                            button.removeClass("btn-promary")
+                                .addClass("btn-info")
+                                .text("Obserwuje");
                         })
                         .fail(function () {
                             alert("Coś poszło nie tak :(");
