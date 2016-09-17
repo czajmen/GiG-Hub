@@ -25,14 +25,14 @@ namespace GigHub.Controllers.Api
             {
                 var userId = User.Identity.GetUserId();
 
-                if (_context.Followers.Any(f => f.FollowerId == userId && f.ArtistId == dto.ArtistId))
+                if (_context.Followers.Any(f => f.FollowerId == userId && f.FolloweeId == dto.ArtistId))
                 {
                     return BadRequest("Już śledzisz tego wykonawcę!");
                 }
 
                 var following = new FollowingArtist()
                 {
-                    ArtistId = dto.ArtistId,
+                    FolloweeId = dto.ArtistId,
                     FollowerId = userId
                 };
 

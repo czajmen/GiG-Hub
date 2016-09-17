@@ -251,9 +251,9 @@
     <Compile Include="Migrations\201609150940568_add-attendanceWithoutCascadeDel.Designer.cs">
       <DependentUpon>201609150940568_add-attendanceWithoutCascadeDel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201609152145025_followinguser.cs" />
-    <Compile Include="Migrations\201609152145025_followinguser.Designer.cs">
-      <DependentUpon>201609152145025_followinguser.cs</DependentUpon>
+    <Compile Include="Migrations\201609171057031_followingUser.cs" />
+    <Compile Include="Migrations\201609171057031_followingUser.Designer.cs">
+      <DependentUpon>201609171057031_followingUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -267,6 +267,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\FutureDate.cs" />
     <Compile Include="ViewModels\GigFormViewModel.cs" />
+    <Compile Include="ViewModels\GigsViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\RegisterViewModel.cs" />
     <Compile Include="ViewModels\ValidTime.cs" />
@@ -318,7 +319,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\Gigs.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
@@ -377,8 +378,8 @@
     <EmbeddedResource Include="Migrations\201609150940568_add-attendanceWithoutCascadeDel.resx">
       <DependentUpon>201609150940568_add-attendanceWithoutCascadeDel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609152145025_followinguser.resx">
-      <DependentUpon>201609152145025_followinguser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201609171057031_followingUser.resx">
+      <DependentUpon>201609171057031_followingUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
