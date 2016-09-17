@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Noje nadchodzące Koncerty</h2>
+<h2>Moje nadchodzące Koncerty</h2>
 
 <ul class="gigs">
     @foreach (var gig in Model)
@@ -28,7 +28,11 @@
                 <span class="genre">
                     @gig.Genre.Name
                   </span>
- 
+                <div class="actions">
+                    <a href="@Url.Action("Edit", "Gigs", new {id = gig.Id})">
+                        Edytuj
+                    </a>
+                </div>
    
             </div>          
         </li>
