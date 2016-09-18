@@ -55,36 +55,45 @@
                     .click(function(e) {
                         var link = $(e.target);
 
-                        bootbox.confirm("Jesteś pewien ze chcesz usunąć ten koncert?",
-                            function (result) {
+                        bootbox.dialog({
+                            message: "Jesteś pewien ze chcesz odwołać ten koncert?",
+                            title: "Odwołanie koncertu",
+                            buttons: {
+                                no: {
+                                    label: "Nie",
+                                    className: "btn-default",
+                                    callback: function () {
 
-                                if (result) {
-                                    $.ajax({
-                                        url: "/api/gigs/" + link.attr("data-gig-id"),
-                                        method: "DELETE"
-                                            })
-                                     .done(function () {
+                                        bootbox.hideAll();
+                                    }
+                                },
+                                yes: {
+                                    label: "Tak",
+                                    className: "btn-danger",
+                                    callback: function () {
+                                    
+                                        $.ajax({
+                                            url: "/api/gigs/" + link.attr("data-gig-id"),
+                                            method: "DELETE"
+                                        })
+                                         .done(function () {
 
-                                         link.parents("li")
-                                             .fadeOut(function () {
+                                             link.parents("li")
+                                                 .fadeOut(function () {
 
-                                                 $(this).remove();
-                                             });
-                                     }
-                                     )
-                                     .fail(function () {
+                                                     $(this).remove();
+                                                 });
+                                         }
+                                         )
+                                         .fail(function () {
 
-                                         alert("Coś poszło nie tak!");
-                                     });
-
+                                             alert("Coś poszło nie tak!");
+                                         });
+                                    }
                                 }
-
-                            });
-
-                    
-
+                            }
+                        });                    
                     });
-
             });
     </script>
 
