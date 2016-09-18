@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=5.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.5.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -205,6 +209,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\MappingProfile.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -214,6 +219,11 @@
     <Compile Include="Controllers\Api\FollowingArtistDto.cs" />
     <Compile Include="Controllers\Api\FollwingArtistController.cs" />
     <Compile Include="Controllers\Api\GigsController.cs" />
+    <Compile Include="Controllers\Api\NotificationController.cs" />
+    <Compile Include="Models\ApplicationUserDto.cs" />
+    <Compile Include="Models\GenreDto.cs" />
+    <Compile Include="Models\GigDto.cs" />
+    <Compile Include="Models\NotificationDto.cs" />
     <Compile Include="Controllers\FollowController.cs" />
     <Compile Include="Controllers\GigsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -264,6 +274,14 @@
     <Compile Include="Migrations\201609181405207_AddNotification.cs" />
     <Compile Include="Migrations\201609181405207_AddNotification.Designer.cs">
       <DependentUpon>201609181405207_AddNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609181448324_refactoring.cs" />
+    <Compile Include="Migrations\201609181448324_refactoring.Designer.cs">
+      <DependentUpon>201609181448324_refactoring.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609181540295_refactoring1.cs" />
+    <Compile Include="Migrations\201609181540295_refactoring1.Designer.cs">
+      <DependentUpon>201609181540295_refactoring1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -412,6 +430,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609181405207_AddNotification.resx">
       <DependentUpon>201609181405207_AddNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609181448324_refactoring.resx">
+      <DependentUpon>201609181448324_refactoring.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609181540295_refactoring1.resx">
+      <DependentUpon>201609181540295_refactoring1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

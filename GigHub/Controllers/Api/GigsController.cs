@@ -29,6 +29,26 @@ namespace GigHub.Controllers.Api
             }
 
             gig.IsCanceled = true;
+
+
+
+            /////////////////// notification
+
+            var notification = new Notification(gig, NotificationType.GigCanceled);
+
+
+            var attendes = _context.Attendances
+                .Where(a => a.GigId == gig.Id)
+                .Select(a => a.Attendee)
+                .ToList();
+
+            foreach (var user in attendes)
+            {
+                user.Notify(notification);
+            }
+
+            ////////////////////////////
+
             _context.SaveChanges();
 
             return Ok();

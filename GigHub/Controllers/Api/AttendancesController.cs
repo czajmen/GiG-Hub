@@ -27,7 +27,7 @@ namespace GigHub.Controllers.Api
             {
                 var userId = User.Identity.GetUserId();
 
-                if (_context.Attendances.Any(a => a.AtendeeId == userId && a.GigId == dto.GigId))
+                if (_context.Attendances.Any(a => a.AttendeeId == userId && a.GigId == dto.GigId))
                 {
                     return BadRequest("Już obserwujesz to wydarzenie!");
                 }
@@ -36,7 +36,7 @@ namespace GigHub.Controllers.Api
                 var attendance = new Attendance()
                 {
                     GigId = dto.GigId,
-                    AtendeeId = userId
+                    AttendeeId = userId
                 };
 
                 _context.Attendances.Add(attendance);
