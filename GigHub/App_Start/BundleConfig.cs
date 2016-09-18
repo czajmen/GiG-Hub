@@ -8,7 +8,8 @@ namespace GigHub
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js"));
+                        "~/Scripts/jquery-{version}.js",
+                        "~/Scripts/underscore.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*").Include("~/Localization/messages_pl.js"));
@@ -28,7 +29,9 @@ namespace GigHub
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                       "~/Content/site.css"
+                       "~/Content/site.css",
+                       "~/Content/animate.min.css"
+
                      ));
         }
     }

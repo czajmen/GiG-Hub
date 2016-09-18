@@ -1,4 +1,4 @@
-﻿namespace GigHub.Controllers.Api
+﻿namespace GigHub.Models.Dtos
 {
     public class FollowingArtistDto
     {

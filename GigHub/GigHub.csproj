@@ -214,16 +214,16 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\Api\AttendanceDto.cs" />
+    <Compile Include="Models\Dtos\AttendanceDto.cs" />
     <Compile Include="Controllers\Api\AttendancesController.cs" />
-    <Compile Include="Controllers\Api\FollowingArtistDto.cs" />
+    <Compile Include="Models\Dtos\FollowingArtistDto.cs" />
     <Compile Include="Controllers\Api\FollwingArtistController.cs" />
     <Compile Include="Controllers\Api\GigsController.cs" />
     <Compile Include="Controllers\Api\NotificationController.cs" />
-    <Compile Include="Models\ApplicationUserDto.cs" />
-    <Compile Include="Models\GenreDto.cs" />
-    <Compile Include="Models\GigDto.cs" />
-    <Compile Include="Models\NotificationDto.cs" />
+    <Compile Include="Models\Dtos\ApplicationUserDto.cs" />
+    <Compile Include="Models\Dtos\GenreDto.cs" />
+    <Compile Include="Models\Dtos\GigDto.cs" />
+    <Compile Include="Models\Dtos\NotificationDto.cs" />
     <Compile Include="Controllers\FollowController.cs" />
     <Compile Include="Controllers\GigsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -305,6 +305,8 @@
     <Compile Include="ViewModels\ValidTime.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\animate.css" />
+    <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
@@ -347,6 +349,8 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\underscore.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -385,6 +389,7 @@
     <Content Include="Views\Gigs\GigForm.cshtml" />
     <Content Include="Views\Follow\Follow.cshtml" />
     <Content Include="Views\Gigs\Mine.cshtml" />
+    <Content Include="Scripts\underscore.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
