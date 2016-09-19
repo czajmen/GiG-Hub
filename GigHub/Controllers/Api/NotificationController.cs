@@ -2,6 +2,7 @@
 using GigHub.Models;
 using GigHub.Models.Dtos;
 using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace GigHub.Controllers.Api
 {
 
     [Authorize]
-    [Route("api/notification/")]
+
     public class NotificationController : ApiController
     {
         private ApplicationDbContext _context;
@@ -22,6 +23,7 @@ namespace GigHub.Controllers.Api
             _context = new ApplicationDbContext();
         }
 
+        [Route("api/notification/")]
         public IEnumerable<NotificationDto> GetNewNotifications()
         {
 
@@ -33,29 +35,37 @@ namespace GigHub.Controllers.Api
                 .Include(n => n.Gig.Artist)
                 .ToList();
 
-
-
             return notifications.Select(Mapper.Map<Notification, NotificationDto>);
+        }
+        [HttpPost]
+        [Route("api/notification/readed/")]
+        public IHttpActionResult MakeAsReaded()
+        {
+            try
+            {
+                var userId = User.Identity.GetUserId();
 
-            //return notifications.Select(n => new NotificationDto()
-            //{
-            //    DateTime = n.DateTime,
-            //    Gig = new GigDto()
-            //    {
-            //        Artist = new ApplicationUserDto()
-            //        {
-            //            Id = n.Gig.Artist.Id,
-            //            Name = n.Gig.Artist.Name
-            //        },
-            //        DateTime = n.Gig.DateTime,
-            //        Id = n.Gig.Id,
-            //        IsCanceled = n.Gig.IsCanceled,
-            //        Venue = n.Gig.Venue
-            //    },
-            //    OrigialDateTime = n.OrigialDateTime,
-            //    OriginalVenue = n.OriginalVenue,
-            //    Type = n.Type
-            //});
+                var notifications =
+                   _context.UserNotifications.Where(un => un.UserId == userId && !un.IsRead)
+                        .ToList();
+
+
+                foreach (var notification in notifications)
+                {
+                    notification.IsRead = true;
+                }
+
+
+                _context.SaveChanges();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest("Error" + ex.Message);
+            }
+
         }
 
     }

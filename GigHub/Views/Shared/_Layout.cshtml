@@ -138,7 +138,26 @@
                                 },
                                 placement: "bottom"
                    
-                            });
+                            }).on("shown.bs.popover", function() {
+                                    
+                              
+                                 
+                                $.post("api/notification/readed/",{})
+                                        .done(function () {
+                                          
+
+                                            $(".js-notifications-count")
+                                                .text(notifications.length)
+                                                .addClass("hide")
+                                                .removeClass("animated bounceInDown");
+
+                                        })
+                                        .fail(function () {
+                                            alert("Coś poszło nie tak :(");
+                                        });
+                                
+
+                                });
                         });
                 });
         </script>
