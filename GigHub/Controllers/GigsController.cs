@@ -151,13 +151,33 @@ namespace GigHub.Controllers
                 var gig = _context.Gigs.Single(g => g.Id == vm.Id && g.ArtistId == userId);
 
 
+                var notification = new Notification(gig, NotificationType.GigUpdated);
+
+                notification.OrigialDateTime = gig.DateTime;
+                notification.OriginalVenue = gig.Venue;
+
+
+
                 gig.Venue = vm.Venue;
                 gig.DateTime = vm.GetDateTime(vm.Date, vm.Time);
                 gig.GenreId = vm.Genre;
 
+
+              
+
+                var attendes = _context.Attendances
+                   .Where(a => a.GigId == gig.Id)
+                   .Select(a => a.Attendee)
+                   .ToList();
+
+                foreach (var user in attendes)
+                {
+                    user.Notify(notification);
+                }
+
                 await _context.SaveChangesAsync();
 
-                return RedirectToAction($"Mine", $"Gigs");
+                return RedirectToAction("Mine", "Gigs");
             }
             else
             {

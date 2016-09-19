@@ -40,36 +40,105 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
+    <script src="~/Translations/MomentJS/pl.js"></script>
     
-        <script>
+
+    
+
+    
+<script type="text/x-template" id="notifications-template">
+    
+    <ul class="notifications">
+        <%
+
+        _.each(notifications, function(notification){
+
+        if(notification.type == 1)
+        {
+        
+        moment.locale('pl');
+       
+            %>
+
+            <li><span class="highlight"><%= notification.gig.artist.name %></span> Odwołał swoje wydarzenie w miejscu: <%= notification.gig.venue%> o czasie: <%= moment(notification.gig.dateTime).format("D MMM HH:mm")%>.</li>
+
+            <%
+        }
+
+        else if(notification.type ==2)
+        {
+
+            var changes = [],
+            orginalValue = [],
+            newValue = [];
+
+
+            if(notification.orginalVenue != notification.gig.venue)
+            {
+                changes.push('Miejsce wydarzenia');
+                newValue.push(notification.gig.venue);
+                orginalValue.push(notification.originalVenue);
+        
+  
+            }
+
+            if(notification.orginalDateTime != notification.gig.dateTime)
+            {
+                changes.push('Czas wydarzenia');
+                newValue.push(moment(notification.gig.dateTime).format("D MMM HH:mm"));
+                orginalValue.push(moment(notification.orginalDateTime).format("D MMM HH:mm"));
+
+            }
+        
+        %>
+
+        <li><span class="highlight"> <%= notification.gig.artist.name %> </span> zmienił <%= changes.join(' i ') %> z <%= orginalValue.join(' ') %> na <%= newValue.join(' ') %> .</li>
+        
+        <%
+        }
+
+        })
+
+        %>
+
+    </ul>
+
+
+</script>
+    
+<script>
 
             $(document)
                 .ready(function() {
 
                     $.getJSON("api/notification/",
-                        function(notifications) {
+                        function (notifications) {
+
+                            if (notifications.length == 0)
+                                return;
 
                             $(".js-notifications-count")
                                 .text(notifications.length)
                                 .removeClass("hide")
                                 .addClass("animated bounceInDown");
 
-                        });
 
 
-                    $(".notifications")
-                        .popover({
-                            html: true,
-                            title: "Powiadomienia",
-                            content: function () {
+                            $(".notifications")
+                            .popover({
+                                html: true,
+                                title: "Powiadomienia",
+                                content: function () {
 
-                                var compiled = _.template("Hello <%= name %>");
-                                var html = compiled({ name: "Kamil" });
-                                return html;
+                                    var compiled = _.template($("#notifications-template").html());
+                                    var html = compiled({ notifications: notifications });
+                                    return html;
 
-                            },
-                            placement: "bottom"
+                                },
+                                placement: "bottom"
                    
+                            });
                         });
                 });
         </script>
