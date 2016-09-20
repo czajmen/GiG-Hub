@@ -9,76 +9,72 @@
 <h2>Informacie o koncercie</h2>
 
 <div class="container">
-    <div class="col-md-8 col-md-offset-2">
-        
-        <div class="gig-details">
+    <div class="col-md-8 col-md-offset-2">       
+        <div class="gig-details">          
+            <p>Koncert zostanie zoorganizowany w @Model.Gig.Venue przez <span class="highlight"> @Model.Gig.Artist.Name</span> 
+  
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <button data-artist-id="@Model.Gig.Artist.Id" style="margin-bottom: 10px;" class="btn btn-xs btn-primary js-follow-artist">Obserwuj</button>
+                } 
+            </p>
             
-
-            <p>Koncert zostanie zoorganizowany w @Model.Gig.Venue przez <span class="highlight"> @Model.Gig.Artist.Name</span>    @if (User.Identity.IsAuthenticated)
-                                                                                                                                  {
-                                                                                                                                      <button data-artist-id="@Model.Gig.Artist.Id" style="margin-bottom: 10px;" class="btn btn-xs btn-primary js-follow-artist">Obserwuj</button>
-                                                                                                                                  } </p>
-
-
-
+            <p>
+                Odbędzie on się <i class="highlight gig-date"></i>
+            </p>
+            
             @if (Model.isGoing)
             {
                 <p class="status">Dodałeś ten koncert do swojego kalendarza!</p>
             }
 
         </div>
-
-
-
     </div>
 </div>
 
 @section scripts{
-
+<script src="~/Translations/MomentJS/pl.js"></script>
     <script type="text/javascript">
 
         var isFollowing = false;
 
-        $(document).ready(function () {
+        $(".gig-date").text(moment("@Model.Gig.DateTime").format("D MMMM YYYY HH:mm"));
 
-            $.post("/api/follow/check/", { ArtistId: $(".js-follow-artist").attr("data-artist-id") })
-            .done(function () {
-                
-            })
-            .fail(function () {
-                $(".js-follow-artist").removeClass("btn-promary")
-                       .addClass("btn-info")
-                       .text("Obserwuje");
+        $(document)
+            .ready(function() {
 
-                isFollowing = true;
-                });
+                $.post("/api/follow/check/", { ArtistId: $(".js-follow-artist").attr("data-artist-id") })
+                    .done(function() {
 
+                    })
+                    .fail(function() {
+                        $(".js-follow-artist")
+                            .removeClass("btn-promary")
+                            .addClass("btn-info")
+                            .text("Obserwuje");
 
+                        isFollowing = true;
+                    });
 
-            
-            $(".js-follow-artist")
-                .click(function (e) {
-                    var button = $(e.target);
-                    $.post("/api/follow/", { ArtistId: button.attr("data-artist-id") })
-                        .done(function () {
-                            button.removeClass("btn-promary")
-                                .addClass("btn-info")
-                                .text("Obserwuje");
-                        })
-                        .fail(function () {
-                            if (isFollowing) {
+                $(".js-follow-artist")
+                    .click(function(e) {
+                        var button = $(e.target);
+                        $.post("/api/follow/", { ArtistId: button.attr("data-artist-id") })
+                            .done(function() {
+                                button.removeClass("btn-promary")
+                                    .addClass("btn-info")
+                                    .text("Obserwuje");
+                            })
+                            .fail(function() {
+                                if (isFollowing) {
 
-                            } else {
-                                alert("Wystąpił nieznany bład");
-                            }
-                        });
-                });
-        })
-
-
-
+                                } else {
+                                    alert("Wystąpił nieznany bład");
+                                }
+                            });
+                    });
+            });
     </script>
-
 }
               
 
