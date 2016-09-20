@@ -298,6 +298,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\FollowingArtistsViewModel.cs" />
     <Compile Include="ViewModels\FutureDate.cs" />
+    <Compile Include="ViewModels\GigDetailsViewModel.cs" />
     <Compile Include="ViewModels\GigFormViewModel.cs" />
     <Compile Include="ViewModels\GigsViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -395,6 +396,7 @@
     <Content Include="Views\Follow\Follow.cshtml" />
     <Content Include="Views\Gigs\Mine.cshtml" />
     <Content Include="Scripts\underscore.min.map" />
+    <None Include="Views\Gigs\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
