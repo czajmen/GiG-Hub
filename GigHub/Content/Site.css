@@ -183,3 +183,13 @@ ul .notifications > li:last-child {
 ul .notifications .highlight {
     font-weight: bold;
 }
+
+.gig-details {
+
+    margin-top: 50px;
+    text-align: center
+}
+
+.gig-details .status {
+    color: brown;
+}

@@ -5,6 +5,7 @@ using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
+using GigHub.Models.Dtos;
 
 namespace GigHub.Controllers
 {
@@ -185,10 +186,31 @@ namespace GigHub.Controllers
 
                 return (View("GigForm", vm));
             }
+        }
 
 
+        public ActionResult Details(int id)
+        {
+            var userId = User.Identity.GetUserId();
+       
+            var gig = _context.Gigs.Where(g => g.Id == id)
+                .Include(a => a.Artist).Single();
 
+            var vm = new GigDetailsViewModel
+            {
+                Gig = AutoMapper.Mapper.Map<Gig, GigDto>(gig),
+                User = AutoMapper.Mapper.Map<ApplicationUser, ApplicationUserDto>(gig.Artist),
+                isGoing = _context.Attendances.Where(g => g.Gig.Id == id).Any(g => g.Attendee.Id == userId)
 
+            };
+                  
+            return View("Details", vm);
+        }
+
+        [HttpPost]
+        public ActionResult Search(GigsViewModel vm)
+        {
+            return RedirectToAction("Index", "Home", new {query = vm.Search});
         }
     }
 }

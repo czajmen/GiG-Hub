@@ -19,6 +19,24 @@ namespace GigHub.Controllers.Api
 
         [Authorize]
         [HttpPost]
+        [Route("api/follow/check/")]
+        public IHttpActionResult IsFollowing(string artistId)
+        {
+            var userId = User.Identity.GetUserId();
+
+            if (_context.Followers.Any(f => f.FollowerId == userId && f.FolloweeId == artistId))
+            {
+
+                return Ok();
+            }
+
+            return BadRequest();
+        }
+
+
+
+        [Authorize]
+        [HttpPost]
         [Route("api/follow/")]
         public IHttpActionResult Follow(FollowingArtistDto dto)
         {

@@ -6,6 +6,25 @@ ViewBag.Title = $"Home Page";
 
 <h1>@Model.Heading</h1>
 
+
+@using (Html.BeginForm("Search", "Gigs"))
+{
+    
+    <div class="form-group">
+        <div class="input-group" style="width: 300px">
+            @Html.TextBoxFor(m => m.Search, new { @class = "form-control" })
+           
+            <span class="input-group-addon">
+                <i class="glyphicon glyphicon-search"></i>
+            </span>
+
+        </div>
+ 
+
+    </div>
+}
+
+
 <ul class="gigs">
     @foreach (var gig in Model.UpcomingGigs)
     {
@@ -22,7 +41,7 @@ ViewBag.Title = $"Home Page";
             </div>
             <div class="details">
                 <span class="artist">
-                    @gig.Artist.Name
+                    <a href="@Url.Action("Details","Gigs", new { id = gig.Id})">  @gig.Artist.Name</a> 
                     
                     @if (gig.IsCanceled)
                     {
@@ -45,14 +64,14 @@ ViewBag.Title = $"Home Page";
                   </span>
         @if (User.Identity.IsAuthenticated && !gig.IsCanceled)
         {
-          
+
                  <button data-gig-id="@gig.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Idziesz?</button>
-             
+
         }
    
             </div>          
         </li>
-    }
+        }
 
 
 </ul>
