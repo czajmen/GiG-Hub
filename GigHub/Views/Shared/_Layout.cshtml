@@ -142,7 +142,7 @@
                                     
                               
                                  
-                                $.post("api/notification/readed/",{})
+                                $.post("/api/notification/readed/",{})
                                         .done(function () {
                                           
 
@@ -152,8 +152,8 @@
                                                 .removeClass("animated bounceInDown");
 
                                         })
-                                        .fail(function () {
-                                            alert("Coś poszło nie tak :(");
+                                        .fail(function (t) {
+                                            alert("Coś poszło nie tak :(" + t);
                                         });
                                 
 

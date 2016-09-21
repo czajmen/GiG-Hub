@@ -1,4 +1,3 @@
-    Layout = "~/Views/Shared/_Layout.cshtml";
 ﻿@model GigHub.ViewModels.GigDetailsViewModel
 
 @{
@@ -11,17 +10,20 @@
 
 <div class="container">
     <div class="col-md-8 col-md-offset-2">       
-        <div class="gig-details">          
-            <p>Koncert zostanie zoorganizowany w @Model.Gig.Venue przez <span class="highlight"> @Model.Gig.Artist.Name</span> 
-  
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <button data-artist-id="@Model.Gig.Artist.Id" style="margin-bottom: 10px;" class="btn btn-xs btn-primary js-follow-artist">Obserwuj</button>
-                } 
-            </p>
+        <div class="gig-details">    
+            
+            Wykonawca:
+            <h1>
+                <span class="highlight" style="margin-left: 0"> @Model.Gig.Artist.Name</span> @if (User.Identity.IsAuthenticated)
+                    {
+                    <button data-artist-id="@Model.Gig.Artist.Id" style="margin-bottom: 10px;" class="btn btn-md btn-primary js-follow-artist">Obserwuj</button>
+                    }
+            </h1>
+                  
+            <p>Koncert zostanie zoorganizowany w <strong> @Model.Gig.Venue </strong> </p>
             
             <p>
-                Odbędzie on się <i class="highlight gig-date"></i>
+                Odbędzie on się <strong class=" gig-date"></strong>
             </p>
             
             @if (Model.isGoing)
