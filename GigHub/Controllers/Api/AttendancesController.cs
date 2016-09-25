@@ -19,11 +19,46 @@ namespace GigHub.Controllers.Api
         }
 
         [Authorize]
+        [HttpDelete]
+        public IHttpActionResult Delete(AttendanceDto dto)
+        {
+
+            var userId = User.Identity.GetUserId();
+
+            if (userId == null)
+                return Unauthorized();
+
+            if (_context.Attendances.SingleOrDefault(a => a.Gig.Id == dto.GigId)== null)
+            {
+                return NotFound();
+            }
+
+            try
+            {
+                var attendance = _context.Attendances.SingleOrDefault(a => a.AttendeeId == userId && a.Gig.Id == dto.GigId);
+
+                if (attendance == null)
+                    return NotFound();
+
+                _context.Attendances.Remove(attendance);
+                _context.SaveChanges();
+            
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+            }
+
+
+        }
+
+
+        [Authorize]
         [HttpPost]
         public IHttpActionResult Attend(AttendanceDto dto)
         {
-
-
             try
             {
                 var userId = User.Identity.GetUserId();

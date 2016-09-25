@@ -65,7 +65,7 @@ ViewBag.Title = $"Home Page";
         @if (User.Identity.IsAuthenticated && !gig.IsCanceled)
         {
 
-                 <button data-gig-id="@gig.Id" class="btn btn-default btn-sm pull-right js-toggle-attendance">Idziesz?</button>
+                 <button data-gig-id="@gig.Id" class="btn @( Model.Attendances.Contains(gig.Id) ? "btn-info" : "btn-default") btn-sm pull-right js-toggle-attendance">@( Model.Attendances.Contains(gig.Id) ? "Idę!" : "Idziesz?")</button>
 
         }
    
@@ -78,37 +78,24 @@ ViewBag.Title = $"Home Page";
 @section scripts{
     <script>
 
-       $(document)
+        $(document)
             .ready(function() {
 
-                $(".js-toggle-attendance")
-                    .click(function (e) {
+                initGigs();
+
+                $(".js-follow-artist")
+                    .click(function(e) {
                         var button = $(e.target);
-                        $.post("/api/attendances", { gigId: button.attr("data-gig-id") })
+                        $.post("/api/follow/", { ArtistId: button.attr("data-artist-id") })
                             .done(function() {
-                                button.removeClass("btn-default")
+                                button.removeClass("btn-promary")
                                     .addClass("btn-info")
-                                    .text("Ide");
+                                    .text("Obserwuje");
                             })
                             .fail(function() {
                                 alert("Coś poszło nie tak :(");
                             });
                     });
-
-
-                $(".js-follow-artist")
-                .click(function (e) {
-                    var button = $(e.target);
-                    $.post("/api/follow/", { ArtistId: button.attr("data-artist-id") })
-                        .done(function () {
-                            button.removeClass("btn-promary")
-                                .addClass("btn-info")
-                                .text("Obserwuje");
-                        })
-                        .fail(function () {
-                            alert("Coś poszło nie tak :(");
-                        });
-                });
             });
     </script>
 }

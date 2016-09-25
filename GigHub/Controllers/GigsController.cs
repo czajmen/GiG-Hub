@@ -77,9 +77,13 @@ namespace GigHub.Controllers
             {
                 UpcomingGigs = gigs,
                 Authorized = User.Identity.IsAuthenticated,
-                Heading = "Koncerty na którę idę!"
+                Heading = "Koncerty na którę idę!",
+                Attendances = _context.Attendances
+                .Where(a => a.AttendeeId == userId
+                        && a.Gig.DateTime > DateTime.Now)
+                .ToList().ToLookup(a => a.GigId)
 
-            };
+        };
 
             return View("Gigs", vm);
 
@@ -191,19 +195,31 @@ namespace GigHub.Controllers
 
         public ActionResult Details(int id)
         {
-            var userId = User.Identity.GetUserId();
+          
        
             var gig = _context.Gigs.Where(g => g.Id == id)
                 .Include(a => a.Artist).Single();
 
+            if (gig==null)
+            {
+                return HttpNotFound();
+            }
+
             var vm = new GigDetailsViewModel
             {
-                Gig = AutoMapper.Mapper.Map<Gig, GigDto>(gig),
-                User = AutoMapper.Mapper.Map<ApplicationUser, ApplicationUserDto>(gig.Artist),
-                isGoing = _context.Attendances.Where(g => g.Gig.Id == id).Any(g => g.Attendee.Id == userId)
-
+                Gig = AutoMapper.Mapper.Map<Gig, GigDto>(gig)
+              
             };
-                  
+
+            if (User.Identity.IsAuthenticated)
+            {
+                var userId = User.Identity.GetUserId();
+
+                vm.User = AutoMapper.Mapper.Map<ApplicationUser, ApplicationUserDto>(gig.Artist);
+                vm.isGoing = _context.Attendances.Where(g => g.Gig.Id == id).Any(g => g.Attendee.Id == userId);
+
+            }
+
             return View("Details", vm);
         }
 
