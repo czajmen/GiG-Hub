@@ -16,15 +16,38 @@ namespace GigHub.Controllers.Api
             _context = new ApplicationDbContext();
         }
 
+        [Authorize]
+        [HttpPost]
+        [Route("api/unfollow/")]
+        public IHttpActionResult CancelFollowing(FollowingArtistDto dto)
+        {
+            var userId = User.Identity.GetUserId();
+
+
+            if (!_context.Followers.Any(f => f.FollowerId == userId && f.FolloweeId == dto.ArtistId))
+            {
+                return BadRequest("Nie śledzisz tego wykonawcy");
+            }
+
+            var follow = _context.Followers.Single(f => f.FolloweeId == dto.ArtistId && f.FollowerId == userId);
+
+          
+
+            _context.Followers.Remove(follow);
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
 
         [Authorize]
         [HttpPost]
         [Route("api/follow/check/")]
-        public IHttpActionResult IsFollowing(string artistId)
+        public IHttpActionResult IsFollowing(FollowingArtistDto dto)
         {
             var userId = User.Identity.GetUserId();
 
-            if (_context.Followers.Any(f => f.FollowerId == userId && f.FolloweeId == artistId))
+            if (_context.Followers.Any(f => f.FollowerId == userId && f.FolloweeId == dto.ArtistId))
             {
 
                 return Ok();

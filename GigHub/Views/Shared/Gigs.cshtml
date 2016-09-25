@@ -25,7 +25,7 @@ ViewBag.Title = $"Home Page";
 }
 
 
-<ul class="gigs">
+<ul id="gigsContainer" class="gigs">
     @foreach (var gig in Model.UpcomingGigs)
     {
         <li>        
@@ -51,14 +51,8 @@ ViewBag.Title = $"Home Page";
                     {
                         <span class="label label-success">Aktywny</span>
                     }
-
-            @if (User.Identity.IsAuthenticated)
-            {
-                <button data-artist-id="@gig.ArtistId" style="margin-bottom: 10px;" class="btn btn-xs btn-primary js-follow-artist">Obserwuj</button>
-            }
                
-                   </span>
-               
+                   </span>               
                 <span class="genre">
                     @gig.Genre.Name
                   </span>
@@ -80,22 +74,7 @@ ViewBag.Title = $"Home Page";
 
         $(document)
             .ready(function() {
-
-                GigsController.init();
-
-                $(".js-follow-artist")
-                    .click(function(e) {
-                        var button = $(e.target);
-                        $.post("/api/follow/", { ArtistId: button.attr("data-artist-id") })
-                            .done(function() {
-                                button.removeClass("btn-promary")
-                                    .addClass("btn-info")
-                                    .text("Obserwuje");
-                            })
-                            .fail(function() {
-                                alert("Coś poszło nie tak :(");
-                            });
-                    });
+                GigsController.init("#gigsContainer");
             });
     </script>
 }

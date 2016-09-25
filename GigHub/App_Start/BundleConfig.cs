@@ -11,6 +11,8 @@ namespace GigHub
                 .Include(
                 "~/scripts/app/services/attendanceService.js",
                 "~/scripts/app/controllers/gigsController.js",
+                "~/scripts/app/services/followService.js",
+                "~/scripts/app/controllers/followController.js",
                 "~/scripts/app/app.js"         
                 ));
 

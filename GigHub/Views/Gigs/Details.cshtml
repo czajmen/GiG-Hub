@@ -36,46 +36,17 @@
 </div>
 
 @section scripts{
-<script src="~/Translations/MomentJS/pl.js"></script>
+    <script src="~/Translations/MomentJS/pl.js"></script>
     <script type="text/javascript">
 
-        var isFollowing = false;
 
         $(".gig-date").text(moment("@Model.Gig.DateTime").format("D MMMM YYYY HH:mm"));
 
         $(document)
             .ready(function() {
 
-                $.post("/api/follow/check/", { ArtistId: $(".js-follow-artist").attr("data-artist-id") })
-                    .done(function() {
+                FollowingController.init();
 
-                    })
-                    .fail(function() {
-                        $(".js-follow-artist")
-                            .removeClass("btn-promary")
-                            .addClass("btn-info")
-                            .text("Obserwuje");
-
-                        isFollowing = true;
-                    });
-
-                $(".js-follow-artist")
-                    .click(function(e) {
-                        var button = $(e.target);
-                        $.post("/api/follow/", { ArtistId: button.attr("data-artist-id") })
-                            .done(function() {
-                                button.removeClass("btn-promary")
-                                    .addClass("btn-info")
-                                    .text("Obserwuje");
-                            })
-                            .fail(function() {
-                                if (isFollowing) {
-
-                                } else {
-                                    alert("Wystąpił nieznany bład");
-                                }
-                            });
-                    });
             });
     </script>
 }
