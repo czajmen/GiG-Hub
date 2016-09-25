@@ -81,7 +81,7 @@ ViewBag.Title = $"Home Page";
         $(document)
             .ready(function() {
 
-                initGigs();
+                GigsController.init();
 
                 $(".js-follow-artist")
                     .click(function(e) {
