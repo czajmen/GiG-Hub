@@ -301,6 +301,9 @@
     <Compile Include="Repositories\AttendanceRepository.cs" />
     <Compile Include="Repositories\GenreRepository.cs" />
     <Compile Include="Repositories\GigRepository.cs" />
+    <Compile Include="Repositories\IAttendanceRepository.cs" />
+    <Compile Include="Repositories\IGenreRepository.cs" />
+    <Compile Include="Repositories\IGigRepository.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\FollowingArtistsViewModel.cs" />
     <Compile Include="ViewModels\FutureDate.cs" />

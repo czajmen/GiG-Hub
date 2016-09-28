@@ -14,13 +14,11 @@ namespace GigHub.Controllers
 {
     public class GigsController : Controller
     {
-        private ApplicationDbContext _context;
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
 
-        public GigsController()
+        public GigsController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
-            _unitOfWork = new UnitOfWork(_context);
+            _unitOfWork = unitOfWork;
         }
 
         // GET: Gigs
@@ -56,7 +54,7 @@ namespace GigHub.Controllers
             var vm = new GigFormViewModel
             {
                 Id = gig.Id,
-                Genres = _context.Genre.ToList(),
+                Genres = new ApplicationDbContext().Genre.ToList(),
                 Date = gig.DateTime.ToString("d MMM yyyy"),
                 Time = gig.DateTime.ToString("HH:mm"),
                 Genre = gig.GenreId,
@@ -124,7 +122,7 @@ namespace GigHub.Controllers
             }
             else
             {
-                vm.Genres = _context.Genre.ToList();
+                vm.Genres = new ApplicationDbContext().Genre.ToList();
 
                 return (View("GigForm", vm));
             }
@@ -170,7 +168,7 @@ namespace GigHub.Controllers
             }
             else
             {
-                vm.Genres = _context.Genre.ToList();
+                vm.Genres = new ApplicationDbContext().Genre.ToList();
 
                 return (View("GigForm", vm));
             }
