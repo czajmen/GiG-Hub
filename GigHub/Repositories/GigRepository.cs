@@ -50,6 +50,10 @@ namespace GigHub.Repositories
         }
 
 
+        public void Add(Gig gig)
+        {
 
+            _context.Gigs.Add(gig);
+        }
     }
 }

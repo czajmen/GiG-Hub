@@ -7,6 +7,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using GigHub.Models.Dtos;
+using GigHub.Persistence;
 using GigHub.Repositories;
 
 namespace GigHub.Controllers
@@ -14,17 +15,12 @@ namespace GigHub.Controllers
     public class GigsController : Controller
     {
         private ApplicationDbContext _context;
-        private readonly AttendanceRepository _attendanceRepository;
-        private readonly GigRepository _gigRepository;
-        private GenreRepository _genreRepository;
+        private UnitOfWork _unitOfWork;
 
         public GigsController()
         {
             _context = new ApplicationDbContext();
-
-            _attendanceRepository = new AttendanceRepository(_context);
-            _gigRepository = new GigRepository(_context);
-            _genreRepository = new GenreRepository(_context);
+            _unitOfWork = new UnitOfWork(_context);
         }
 
         // GET: Gigs
@@ -34,7 +30,7 @@ namespace GigHub.Controllers
 
             var vm = new GigFormViewModel
             {
-                Genres = _genreRepository.GetGenres(),
+                Genres = _unitOfWork.Genre.GetGenres(),
                 Heading = "Zaplanuj nowy koncert!"
 
 
@@ -52,7 +48,7 @@ namespace GigHub.Controllers
 
             var userId = User.Identity.GetUserId();
 
-            var gig = _gigRepository.GetGigById(id);
+            var gig = _unitOfWork.Gigs.GetGigById(id);
 
             if (gig.ArtistId != userId)
                 return new HttpUnauthorizedResult();
@@ -80,10 +76,10 @@ namespace GigHub.Controllers
         {
             var vm = new GigsViewModel
             {
-                UpcomingGigs =_gigRepository.GetGigsUserAttending(User.Identity.GetUserId()),
+                UpcomingGigs =_unitOfWork.Gigs.GetGigsUserAttending(User.Identity.GetUserId()),
                 Authorized = User.Identity.IsAuthenticated,
                 Heading = "Koncerty na którę idę!",
-                Attendances = _attendanceRepository.GetFutureAttendances(User.Identity.GetUserId()).ToLookup(a => a.GigId)
+                Attendances = _unitOfWork.Attendance.GetFutureAttendances(User.Identity.GetUserId()).ToLookup(a => a.GigId)
 
         };
 
@@ -98,7 +94,7 @@ namespace GigHub.Controllers
         [Authorize]
         public ActionResult Mine()
         {
-            var gigs = _gigRepository.GetFutureActiveGigsByUser(User.Identity.GetUserId());
+            var gigs = _unitOfWork.Gigs.GetFutureActiveGigsByUser(User.Identity.GetUserId());
 
             return View(gigs);
         }
@@ -121,9 +117,8 @@ namespace GigHub.Controllers
                     Venue = vm.Venue
                 };
 
-                _context.Gigs.Add(gig);
-
-                await _context.SaveChangesAsync();
+                _unitOfWork.Gigs.Add(gig);
+               _unitOfWork.Complete();
 
                 return RedirectToAction($"Mine", $"Gigs");
             }
@@ -148,7 +143,7 @@ namespace GigHub.Controllers
                 var userId = User.Identity.GetUserId();
               //  var gig = _context.Gigs.Single(g => g.Id == vm.Id && g.ArtistId == userId);
 
-                var gig = _gigRepository.GetGigById(vm.Id);
+                var gig = _unitOfWork.Gigs.GetGigById(vm.Id);
 
                 if (gig.ArtistId != userId)
                     return new HttpUnauthorizedResult();
@@ -162,14 +157,14 @@ namespace GigHub.Controllers
                 gig.DateTime = vm.GetDateTime(vm.Date, vm.Time);
                 gig.GenreId = vm.Genre;
               
-                var attendes = _attendanceRepository.GetAttendancesByGig(gig);
+                var attendes = _unitOfWork.Attendance.GetAttendancesByGig(gig);
 
                 foreach (var user in attendes)
                 {
                     user.Notify(notification);
                 }
 
-                await _context.SaveChangesAsync();
+              _unitOfWork.Complete();
 
                 return RedirectToAction("Mine", "Gigs");
             }
@@ -184,7 +179,7 @@ namespace GigHub.Controllers
 
         public ActionResult Details(int id)
         {
-            var gig = _gigRepository.GetGigWithArtistByGigId(id);
+            var gig = _unitOfWork.Gigs.GetGigWithArtistByGigId(id);
         
             if (gig==null)
             {
@@ -202,7 +197,7 @@ namespace GigHub.Controllers
                 var userId = User.Identity.GetUserId();
 
                 vm.User = AutoMapper.Mapper.Map<ApplicationUser, ApplicationUserDto>(gig.Artist);
-                vm.isGoing = _attendanceRepository.GetUserAttendingConfirm(id, userId);
+                vm.isGoing = _unitOfWork.Attendance.GetUserAttendingConfirm(id, userId);
             }
 
             return View("Details", vm);
